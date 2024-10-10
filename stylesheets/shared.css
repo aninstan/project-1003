@@ -10,3 +10,10 @@ man importerer disse konstantene i de andre filene slik: @value --bg1 from "./sh
     --white: #ffffff;
     --black: #000000;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
