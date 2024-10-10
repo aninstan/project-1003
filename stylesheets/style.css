@@ -1,14 +1,8 @@
 /*
 farger legges inn i root og refereres slik i koden: var(--bg1)
 bruk figma for å finne ut hvordan siden skal se ut.
+denne stylesheeten brukes for FELLES styling for alle sider
 */
-
-:root {
-    --bg1: #f5f5f5;
-    --bg2: #e0e0e0;
-    --white: #ffffff;
-    --black: #000000;
-}
 
 * {
     margin: 0;

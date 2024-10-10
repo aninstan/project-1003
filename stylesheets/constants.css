@@ -1,0 +1,12 @@
+/*
+deklarer alle konstanter i denne filen, eks farger.
+farger legges inn i root og refereres slik i koden: var(--bg1)
+man importerer disse konstantene i de andre filene slik: @value --secondary-color from "./constants.css";
+*/
+
+:root {
+    --bg1: #504569;
+    --bg2: #454d69;
+    --white: #ffffff;
+    --black: #000000;
+}
