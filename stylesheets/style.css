@@ -1,0 +1,12 @@
+/*
+farger legges inn i root og refereres slik i koden: var(--bg1)
+bruk figma for å finne ut hvordan siden skal se ut.
+denne stylesheeten brukes for FELLES styling for alle sider
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
