@@ -63,7 +63,7 @@ class Waves {
     }
 };
 
-let waves = new Waves(50, 10, 1, "rgba(255, 255, 255, 0.2)"); 
+let waves = new Waves(50, 5, 1, "rgba(255, 255, 255, 0.2)"); 
 let waves2 = new Waves(40, 15, 1, "rgba(255, 255, 255, 0.1)"); 
 waves.main();
 waves2.main();
