@@ -28,11 +28,19 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    height: 100vh;
+    width: fit-content;
+}
+
 #nav {
     background-color: var(--white);
     display: flex;
     justify-content: space-between;
-    width: 80vw;
+    width:100%;
     position: sticky;
     top: 20px;
     align-self: center;
