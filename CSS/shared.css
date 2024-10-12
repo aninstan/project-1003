@@ -9,7 +9,7 @@ man importerer disse konstantene i de andre filene slik: @value --bg1 from "./sh
 :root {
     --bg1: #54417f;
     --bg2: #41518c;
-    --white: #ebeaea;
+    --white: #c8c8dd;
     --black: #272222;
 }
 
