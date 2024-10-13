@@ -33,7 +33,7 @@ body {
     flex-direction: column;
     align-self: center;
     height: 100vh;
-    width: fit-content;
+    width: min-content;
 }
 
 #nav {
