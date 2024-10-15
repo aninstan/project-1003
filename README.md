@@ -1,6 +1,2 @@
 # project-1003
-
-## Gjøreliste
-- Last ned node.js (Valgfritt for nå)
-- Klone repoet
-Vi har mye å gjøre
+Prosjektet er deployed på https://aninstan.github.io/project-1003/
