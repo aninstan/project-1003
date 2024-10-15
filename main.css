@@ -1,0 +1,204 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: #e0c9a6;
+  text-align: center;
+  padding: 50px;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  background-size: cover;
+  background-image: url(img/DALL·E\ 2024-10-11\ 14.32.02\ -\ A\ high-quality\ 2D\ dungeon-themed\ background\ with\ dark\ blue\ stone\ walls\,\ subtle\ cracks\,\ and\ glowing\ blue\ torches\ casting\ a\ soft\ blue\ light.\ The\ walls\ h.webp);
+}
+
+#om {
+  color: #e0c9a6;
+  text-align: center;
+  padding: 50px;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-image: url(img/DALL·E\ 2024-10-11\ 14.52.09\ -\ A\ high-quality\ 2D\ dungeon-themed\ background\ with\ dark\ reddish\ stone\ walls\,\ subtle\ cracks\,\ green\ moss\,\ and\ glowing\ red\ torches\ emitting\ a\ warm\ red\ ligh.webp);
+  background-size: cover;
+  background-position: center;
+}
+
+#instruksjoner {
+  color: #e0c9a6;
+  text-align: center;
+  padding: 50px;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  background-image: url(img/DALL·E\ 2024-10-11\ 14.36.26\ -\ A\ high-quality\ 2D\ dungeon-themed\ background\ with\ dark\ stone\ walls\,\ subtle\ cracks\,\ green\ moss\,\ and\ glowing\ torches\ emitting\ a\ warm\ yellow\ light.\ The\ wa.webp);
+}
+
+p {
+  color: #ffffff;
+}
+
+p li {
+  color: #ffffff;
+}
+
+h2 {
+  color: #ffffff;
+}
+
+h1 {
+  font-family: fantasy;
+  font-size: 3em;
+  color: #d35400;
+  text-shadow: 2px 2px #3e2f21;
+}
+
+ol {
+  color: white;
+}
+
+ul {
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  padding: 10px 0;
+  width: 800px;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.menu {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  margin: 0 15px;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #ffcc00;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+  padding: 10px 80px;
+  font-size: large;
+}
+
+.menu li a:hover {
+  color: #ffffff;
+  font-size: 1.2em;
+}
+
+.section {
+  margin-top: 50px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 50px;
+  border: 5px solid #555;
+  background-color: #ffffff;
+  border-radius: 15px;
+  height: 450px;
+}
+
+.team-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: auto;
+  margin-bottom: 30px;
+}
+.team-member {
+  margin: 20px;
+  text-align: center;
+  width: 200px;
+}
+.team-member img {
+  width: 200px;
+  height: 300px;
+  border-radius: 0%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.team-member p {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+body {
+  background-color: #1b1b1b;
+  color: #f4f4f4;
+  text-align: center;
+  padding: 50px;
+  font-family: "Arial", sans-serif;
+}
+h1 {
+  font-size: 3em;
+  color: #ffcc00;
+  text-shadow: 2px 2px #333;
+}
+.spill-container {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
+  background-color: #333;
+  border: 5px solid #555;
+  border-radius: 15px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+}
+.spill-tekst {
+  font-size: 1.5em;
+  color: #ffcc00;
+  padding: 30px;
+}
+a {
+  color: #ffcc00;
+}
+a:hover {
+  color: #ff6600;
+}
+.section {
+  margin-top: 50px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.footer {
+  margin-top: auto;
+  color: white;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 0;
+  position: relative;
+  position: sticky;
+}
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.footer p {
+  color: white;
+  margin: 0;
+  font-size: 0.9em;
+}
+.footer p:hover {
+  color: #ffcc00;
+}
