@@ -12,9 +12,8 @@ body {
   flex-direction: column;
   background-position: center;
   background-size: cover;
-  background-image: url(img/DALL·E\ 2024-10-11\ 14.32.02\ -\ A\ high-quality\ 2D\ dungeon-themed\ background\ with\ dark\ blue\ stone\ walls\,\ subtle\ cracks\,\ and\ glowing\ blue\ torches\ casting\ a\ soft\ blue\ light.\ The\ walls\ h.webp);
+  background-image: url();
 }
-
 #om {
   color: #e0c9a6;
   text-align: center;
@@ -52,8 +51,6 @@ h2 {
 }
 
 h1 {
-  font-family: fantasy;
-  font-size: 3em;
   color: #d35400;
   text-shadow: 2px 2px #3e2f21;
 }
@@ -89,7 +86,7 @@ ul {
 
 .menu li a {
   text-decoration: none;
-  color: #ffcc00;
+  color: #ffffff;
   font-weight: bold;
   transition: color 0.3s ease-in-out;
   padding: 10px 80px;
@@ -97,8 +94,7 @@ ul {
 }
 
 .menu li a:hover {
-  color: #ffffff;
-  font-size: 1.2em;
+  color: lightblue;
 }
 
 .section {
@@ -133,7 +129,7 @@ ul {
   margin-bottom: 10px;
 }
 .team-member p {
-  color: #ffcc00;
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -146,7 +142,7 @@ body {
 }
 h1 {
   font-size: 3em;
-  color: #ffcc00;
+  color: #ffffff;
   text-shadow: 2px 2px #333;
 }
 .spill-container {
@@ -161,11 +157,11 @@ h1 {
 }
 .spill-tekst {
   font-size: 1.5em;
-  color: #ffcc00;
+  color: #ffffff;
   padding: 30px;
 }
 a {
-  color: #ffcc00;
+  color: #ffffff;
 }
 a:hover {
   color: #ff6600;
@@ -200,5 +196,5 @@ a:hover {
   font-size: 0.9em;
 }
 .footer p:hover {
-  color: #ffcc00;
+  color: #ffffff;
 }
