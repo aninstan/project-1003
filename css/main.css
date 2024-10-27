@@ -1,18 +1,16 @@
-html,
 body {
   height: 100%;
-}
-
-body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
   color: #e0c9a6;
   text-align: center;
   padding: 50px;
-  font-family: "Arial", sans-serif;
   display: flex;
   flex-direction: column;
-  background-position: center;
-  background-size: cover;
-  background-image: url();
+  align-items: center;
+  justify-content: center;
+  transition: background 5s ease;
+  background: linear-gradient(to right, #a8c0ff, #3f2b96); /* Startfarge */
 }
 #om {
   color: #e0c9a6;
@@ -21,7 +19,6 @@ body {
   font-family: "Arial", sans-serif;
   display: flex;
   flex-direction: column;
-  background-image: url(img/DALL·E\ 2024-10-11\ 14.52.09\ -\ A\ high-quality\ 2D\ dungeon-themed\ background\ with\ dark\ reddish\ stone\ walls\,\ subtle\ cracks\,\ green\ moss\,\ and\ glowing\ red\ torches\ emitting\ a\ warm\ red\ ligh.webp);
   background-size: cover;
   background-position: center;
 }
@@ -35,7 +32,6 @@ body {
   flex-direction: column;
   background-size: cover;
   background-position: center;
-  background-image: url(img/DALL·E\ 2024-10-11\ 14.36.26\ -\ A\ high-quality\ 2D\ dungeon-themed\ background\ with\ dark\ stone\ walls\,\ subtle\ cracks\,\ green\ moss\,\ and\ glowing\ torches\ emitting\ a\ warm\ yellow\ light.\ The\ wa.webp);
 }
 
 p {
@@ -111,23 +107,30 @@ ul {
 
 .team-section {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: auto;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 .team-member {
-  margin: 20px;
+  margin-top: 30px;
   text-align: center;
   width: 200px;
 }
 .team-member img {
-  width: 200px;
-  height: 300px;
-  border-radius: 0%;
-  object-fit: cover;
-  margin-bottom: 10px;
+  width: 125px; /* Bestem en passende bredde */
+  height: 125px; /* Samme høyde som bredde for å få dem runde */
+  border-radius: 25%; /* Gjør bildet rundt */
+  object-fit: cover; /* Sikrer at bildet fyller rammen og ikke deformeres */
+  margin-top: 20px;
 }
+
+.member-name {
+  color: #ffcc00;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
 .team-member p {
   color: #ffffff;
   font-weight: bold;
