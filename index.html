@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://pixijs.download/release/pixi.min.js"></script>
+
     <title>Spill</title>
 
     <link rel="stylesheet" href="CSS/shared.css">
@@ -11,7 +13,7 @@
 </head>
  <!--
     "npm i" i terminalen
-    "npx http-server" i terminalen. Åpne 127.0.0.1 med ctrl+click
+    "npm run dev" i terminalen. Åpne 127.0.0.1 med ctrl+click
     eller trykk på "http://localhost:8080" etter dere har startet serveren med commanden over
  -->
 <body>
@@ -25,6 +27,7 @@
         <div id="gamecontent">
         </div>
         <script src="JavaScript/waves.js"></script>
+        <script src="/dist/bundle.js"></script>
     </div>
 </body>
 </html>
