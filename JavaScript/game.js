@@ -10,7 +10,7 @@ import dungeonTilesetPath from '../assets/terrain/Dungeon_Tileset.png';
     const app = new Application();
 
     // Initialize the application
-    await app.init({ background: '#222222', resizeTo: document.getElementById('gamecontent'),
+    await app.init({ background: '#241318', resizeTo: document.getElementById('gamecontent'),
      });
 
     // Append the application canvas to the document body
@@ -46,12 +46,12 @@ import dungeonTilesetPath from '../assets/terrain/Dungeon_Tileset.png';
                 spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
             }, 
             wallTileBottomRight: {
-                frame: { x: 16*5, y: 16*5, w: 16, h: 16 },
+                frame: { x: 16*5, y: 16*4, w: 16, h: 16 },
                 sourceSize: { w: 16, h: 16 },
                 spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
             }, 
             wallTileBottomLeft: {
-                frame: { x: 0, y: 16*5, w: 16, h: 16 },
+                frame: { x: 0, y: 16*4, w: 16, h: 16 },
                 sourceSize: { w: 16, h: 16 },
                 spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
             }, 
@@ -96,23 +96,17 @@ import dungeonTilesetPath from '../assets/terrain/Dungeon_Tileset.png';
             spritesheet.textures.wallTileTopLeft
         ];
 
-        
-        
-
         // Create rooms with the defined tile textures
-        const room1 = new Room(10, 6, tileTextures);
-        const room2 = new Room(8, 5, tileTextures);
+        const room1 = new Room(10, 6);
+        const room2 = new Room(20, 14);
 
         // Create a map and add rooms at specific positions
-        const map = new Map(40, 20);
+        const map = new Map(20, 20, tileTextures);
         map.addRoom(room1, 1, 3);  // Place room1 at position (3, 3)
-        map.addRoom(room2, 15, 10); // Place room2 at position (15, 10)
+        map.addRoom(room2, 12*4, 3); // Place room2 at position (15, 10)
 
         // Render the map on the PixiJS stage
         map.renderMap(app.stage, tileSize);
-        console.log("Floor Texture:", tileTextures[0]);
-        console.log("Top Wall Texture:", tileTextures[1]);
-        console.log("Side Wall Texture:", tileTextures[2]);
 
     }
 
