@@ -2,36 +2,43 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './JavaScript/game.js', // Update this to the entry point in your JavaScript folder
+  entry: './JavaScript/game.js', // Entry point for your app
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.js', // Output bundle
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html', // Reference the main HTML file at the root
+      template: './index.html', // Template HTML file
     }),
   ],
   devServer: {
     static: {
-      directory: path.join(__dirname, '.'), // Serve files from the root directory
+      directory: path.join(__dirname, '.'), // Serve files from root
     },
-    historyApiFallback: true, // Ensure all routes fallback to index.html
+    historyApiFallback: true, // Fallback to index.html for SPAs
     compress: true,
     port: 9000,
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js$/, // Match JavaScript files
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'], // Use Babel preset for ES6+ compatibility
+          },
         },
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/, // Match CSS files
+        use: ['style-loader', 'css-loader'], // Loaders for CSS
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i, // Match image files
+        type: 'asset/resource', // Treat images as assets
       },
     ],
   },
