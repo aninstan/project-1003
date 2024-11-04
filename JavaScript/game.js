@@ -10,8 +10,7 @@ import dungeonTilesetPath from '../assets/terrain/Dungeon_Tileset.png';
     const app = new Application();
 
     // Initialize the application
-    await app.init({ background: '#241318', resizeTo: document.getElementById('gamecontent'),
-     });
+    await app.init({ background: '#241318', resizeTo: document.getElementById('gamecontent')});
 
     // Append the application canvas to the document body
     document.getElementById('gamecontent').appendChild(app.canvas);
@@ -21,7 +20,7 @@ import dungeonTilesetPath from '../assets/terrain/Dungeon_Tileset.png';
     const atlasData = {
         frames: {
             floorTile: {
-                frame: { x: 16, y: 16, w: 16, h: 16 },
+                frame: { x: 16*7, y: 16*0, w: 16, h: 16 },
                 sourceSize: { w: 16, h: 16 },
                 spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
             },
