@@ -1,77 +1,20 @@
 body {
-  background: linear-gradient(to top, #4a9bff, #4496c0);
-  color: #ffffff;
-  text-align: center;
-  padding: 50px;
+  background: linear-gradient(to top, #1b1b1b, #333);
+  color: #e0e0e0;
   font-family: "Arial", sans-serif;
-}
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-#om {
-  color: #e0c9a6;
-  text-align: center;
   padding: 50px;
-  font-family: "Arial", sans-serif;
-  display: flex;
-  flex-direction: column;
-  background-size: cover;
-  background-position: center;
-}
-
-#instruksjoner {
-  color: #e0c9a6;
+  margin: 0;
   text-align: center;
-  padding: 50px;
-  font-family: "Arial", sans-serif;
-  display: flex;
-  flex-direction: column;
-  background-size: cover;
-  background-position: center;
-}
-
-p {
-  color: #ffffff;
-}
-
-p li {
-  color: #ffffff;
-}
-
-h2 {
-  color: #ffffff;
-}
-
-h1 {
-  color: #d35400;
-  text-shadow: 2px 2px #3e2f21;
-}
-
-ol {
-  color: white;
-}
-
-ul {
-  color: white;
 }
 
 .navbar {
   display: flex;
   justify-content: center;
-  background-color: #333;
-  padding: 10px 0;
-  width: 800px;
+  background-color: #222;
+  padding: 15px;
+  max-width: 500px; /* Set the width you want for the navbar */
   margin: 0 auto;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .menu {
@@ -80,129 +23,55 @@ ul {
   padding: 0;
   margin: 0;
 }
-
 .menu li {
-  margin: 0 15px;
+  margin: 0 10px;
 }
-
 .menu li a {
   text-decoration: none;
-  color: #ffffff;
+  color: #c4c4c4;
   font-weight: bold;
-  transition: color 0.3s ease-in-out;
-  padding: 10px 80px;
-  font-size: large;
+  font-size: 1.1em;
+  padding: 8px 16px;
+  border-radius: 4px;
 }
-
 .menu li a:hover {
-  color: lightblue;
-}
-
-.section {
-  margin-top: 50px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 50px;
-  border: 5px solid #555;
-  background-color: #ffffff;
-  border-radius: 15px;
-  height: 450px;
-}
-
-.team-section {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: nowrap;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-.team-member {
-  margin-top: 30px;
-  text-align: center;
-  width: 200px;
-}
-.team-member img {
-  width: 125px;
-  height: 125px;
-  border-radius: 25%;
-  object-fit: cover;
-  margin-top: 20px;
-}
-
-.member-name {
-  color: #ffcc00;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.team-member p {
   color: #ffffff;
-  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.286);
 }
 
-body {
-  background-color: #1b1b1b;
-  color: #f4f4f4;
-  text-align: center;
-  padding: 50px;
-  font-family: "Arial", sans-serif;
-}
-h1 {
-  font-size: 3em;
-  color: #ffffff;
-  text-shadow: 2px 2px #333;
-}
 .spill-container {
   margin: 20px auto;
-  width: 100%;
   max-width: 1000px;
   height: 750px;
-  background-color: #333;
-  border: 5px solid #555;
-  border-radius: 15px;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+  background-color: #1e1e1e;
+  border: 4px solid #555;
+  border-radius: 12px;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
 }
-.spill-tekst {
-  font-size: 1.5em;
-  color: #ffffff;
-  padding: 30px;
-}
-a {
-  color: #ffffff;
-}
-a:hover {
-  color: #ff6600;
-}
+
 .section {
-  margin-top: 50px;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
-  background-color: #333;
+  height: 700px;
+  padding: 40px;
+  border: 5px solid #777;
+  background-color: #222;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  text-align: left;
+  margin: 0 auto;
 }
+
 .footer {
-  margin-top: auto;
-  color: white;
+  color: #999;
+  padding: 20px;
+  font-size: 0.9em;
   text-align: center;
-  bottom: 0;
-  width: 100%;
-  padding: 10px 0;
-  position: relative;
-  position: sticky;
+  border-top: 1px solid #444;
+  margin-top: 40px;
 }
 .footer-content {
   max-width: 800px;
   margin: 0 auto;
-}
-.footer p {
-  color: white;
-  margin: 0;
-  font-size: 0.9em;
-}
-.footer p:hover {
-  color: #ffffff;
 }
