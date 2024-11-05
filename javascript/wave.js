@@ -69,11 +69,12 @@ class Waves {
   }
 }
 
-let waves = new Waves(40, 10, 1, "rgba(34, 56, 35, 0.4)"); // Mørk grønn
-let waves2 = new Waves(30, 15, 1, "rgba(24, 30, 54, 0.3)"); // Mørk blå
-let waves3 = new Waves(20, 8, 1, "rgba(53, 30, 72, 0.2)"); // Dyp lilla
-let waves4 = new Waves(50, 12, 1, "rgba(66, 42, 23, 0.3)"); // Mørk brun
-waves.main();
+let waves1 = new Waves(40, 8, 1, "rgba(22, 44, 34, 0.3)");
+
+let waves2 = new Waves(30, 12, 1, "rgba(18, 24, 54, 0.2)");
+
+let waves3 = new Waves(25, 10, 1, "rgba(50, 50, 50, 0.15)");
+
+waves1.main();
 waves2.main();
 waves3.main();
-waves4.main();

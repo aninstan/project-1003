@@ -2,34 +2,33 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 800px;
-  padding: 40px;
-  margin: 0 auto;
+  max-width: 650px;
+  padding: 0px;
+  margin: 0px auto;
 }
 
+/*boks til hvert medlem*/
 .team-member {
   display: flex;
   align-items: center;
-  background-color: #1e1e1e;
+  background-color: #333333;
   color: #e0e0e0;
   padding: 20px;
   border-radius: 10px;
+  border: 3px solid #555;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/*Boksen blir litt større ved å hovere over*/
 .team-member:hover {
   transform: scale(1.03);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
-.team-member:nth-child(even) {
-  flex-direction: row;
-}
-
 .team-member img {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   object-fit: cover;
   margin: 0 20px;
@@ -43,7 +42,7 @@
 .member-info h3 {
   margin: 0;
   font-size: 1.3em;
-  color: #00aeff;
+  color: #6287b4;
 }
 
 .member-info p {

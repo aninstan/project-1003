@@ -69,16 +69,7 @@ class Waves {
 
 let waves1 = new Waves(50, 10, 3, "rgba(34, 56, 35, 0.4)");
 let waves2 = new Waves(35, 12, 3, "rgba(24, 30, 54, 0.3)");
-let waves3 = new Waves(20, 8, 3, "rgba(53, 30, 72, 0.2)");
 
 waves1.main();
 waves2.main();
 waves3.main();
-
-// Interactive effect for mouse movement
-window.addEventListener("mousemove", (e) => {
-  let mouseX = e.clientX / window.innerWidth;
-  waves1.amplitude = 50 + mouseX * 20;
-  waves2.amplitude = 35 + mouseX * 15;
-  waves3.amplitude = 20 + mouseX * 10;
-});
