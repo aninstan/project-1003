@@ -12,42 +12,43 @@ export function addStatusBar(app) {
     const background = new Graphics();
 
     // Lage tekst for level/liv/items
-    const style = new TextStyle({
-        fontFamily: 'Arial',
-        fontSize: 24,
-        fill: 'white',
-    });
 
-    const levelText = new Text({
-        text: `Level: ${level}`,
-        style,
-    });
-
-    const livesText = new Text({
-        text: `Lives: ${lives}`,
-        style,
-    });
-   
-    const itemsText = new Text({
-        text: `Remaining items: ${remainingItems}`,
-        style,
-    });
+    const levelText = new Text({text: `Level: ${level}`,});
+    const livesText = new Text({text: `Lives: ${lives}`});
+    const itemsText = new Text({text: `Remaining items: ${remainingItems}`});
     
     //Legge til bakgrunn og tekst
     statusBar.addChild(background, levelText, livesText, itemsText);
 
     function updateLayout() {
+
+        const fontSize = app.screen.height / 20;
+        const style = new TextStyle({
+            fontFamily: 'Arial',
+            fontSize: fontSize,
+            fill: 'white',
+        });
+
+        levelText.style = style;
+        livesText.style = style;
+        itemsText.style = style;
+
         // Lage ensfargig bakgrunn i form av rektangel
-        background.rect(0, 0, app.screen.width, app.screen.height/10);
+        background.rect(0, 0, app.screen.width*1.2, app.screen.height/10);
         background.fill(0x333333);
 
+        //Sett teksten i hver sin tredjedels boks med 0.05 skjermbredde "buffer"
+        const textPositionY = (app.screen.height / 10 - levelText.height) / 2;
+        const sectionWidth = (app.screen.width * 0.9) / 3;
+        const sectionBuffer = app.screen.width * 0.05;
+
         //Oppdate posisjonene til tekstene
-        levelText.x = app.screen.width / 10;
-        levelText.y = app.screen.height / 40;
-        livesText.x = (app.screen.width / 10) *4;
-        livesText.y = app.screen.height / 40;
-        itemsText.x = (app.screen.width / 10) *7;
-        itemsText.y = app.screen.height / 40;
+        levelText.x = sectionBuffer;
+        levelText.y = textPositionY;
+        livesText.x = sectionBuffer + sectionWidth + (livesText.width/2) ;
+        livesText.y = textPositionY;
+        itemsText.x = app.screen.width - sectionBuffer - itemsText.width;
+        itemsText.y = textPositionY;
     };
     
     updateLayout();
