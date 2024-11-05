@@ -22,7 +22,9 @@ export function addStatusBar(app) {
 
     function updateLayout() {
 
-        const fontSize = app.screen.height / 20;
+        const statusBarHeight = app.screen.height / 10;
+
+        const fontSize = statusBarHeight / 2;
         const style = new TextStyle({
             fontFamily: 'Arial',
             fontSize: fontSize,
@@ -34,11 +36,11 @@ export function addStatusBar(app) {
         itemsText.style = style;
 
         // Lage ensfargig bakgrunn i form av rektangel
-        background.rect(0, 0, app.screen.width*1.2, app.screen.height/10);
+        background.rect(0, 0, app.screen.width*1.2, statusBarHeight);
         background.fill(0x333333);
 
         //Sett teksten i hver sin tredjedels boks med 0.05 skjermbredde "buffer"
-        const textPositionY = (app.screen.height / 10 - levelText.height) / 2;
+        const textPositionY = (statusBarHeight - levelText.height) / 2;
         const sectionWidth = (app.screen.width * 0.9) / 3;
         const sectionBuffer = app.screen.width * 0.05;
 
