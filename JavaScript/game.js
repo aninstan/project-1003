@@ -103,7 +103,6 @@ import { addStatusBar, resizeStatusBar } from './statusbar.js';
         // Create a map and add rooms at specific positions
         const map = new Map(20, 20, tileTextures);
         map.addRoom(room1, 1, 3);  // Place room1 at position (3, 3)
-        map.addRoom(room2, 12*4, 3); // Place room2 at position (15, 10)
 
         // Render the map on the PixiJS stage
         map.renderMap(app.stage, tileSize);
@@ -111,4 +110,5 @@ import { addStatusBar, resizeStatusBar } from './statusbar.js';
     }
 
     setup();
+    addStatusBar(app);
 })();
