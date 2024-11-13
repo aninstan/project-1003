@@ -10,8 +10,8 @@ body {
 .team-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 650px;
+  gap: 2vh;
+  max-width: 45vw;
   padding: 0px;
   margin: 0px auto;
 }
@@ -29,7 +29,7 @@ body {
 }
 /*Boksen blir litt større ved å hovere over*/
 .team-member:hover {
-  transform: scale(1.03);
+  transform: scale(1.01);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 .team-member img {
@@ -74,7 +74,7 @@ body {
   margin: 0;
 }
 .menu li {
-  margin: 0 10px;
+  margin: 0 10vh;
 }
 .menu li a {
   text-decoration: none;
