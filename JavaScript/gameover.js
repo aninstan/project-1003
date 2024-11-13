@@ -1,4 +1,4 @@
-import { BlurFilter, Container, Text, TextStyle, Graphics } from 'pixi.js';
+import { BlurFilter, Text, TextStyle } from 'pixi.js';
 
 export function gameOver(app) {
     // Opprette blurfilter og legge til stage
@@ -19,8 +19,8 @@ export function gameOver(app) {
 
     //Legge til game over-tekst midt på skjermen
     gameOverText.x = app.screen.width / 2;
-    gameOverText.y = app.screen.height / 2;
-    gameOverText.anchor.set(0.5);
+    gameOverText.y = 0;
+    gameOverText.anchor.set(0.5, 1);
 
     app.stage.addChild(gameOverText);
 
@@ -41,10 +41,17 @@ export function gameOver(app) {
     restartText.anchor.set(0.5);
 
     //Lage funksjon som oppretter knapp for å starte spillet på nytt
-    function startOverButton(){
-        gameOverBlur.blur = 0;
+    function startOver(){
+        gameOverBlur.strength = 0;
         app.stage.removeChild(gameOverText);
         app.stage.addChild(restartText);
+
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                restartText.visible = false;
+                console.log("Enter trykket, restartText fjernet");
+            };
+        }, {once: true});
         //Mangler funksjonalitet slik at spillet starter på nytt når det trykkes Enter
     };
 
@@ -53,14 +60,20 @@ export function gameOver(app) {
     let count = 0;
     const increment = 0.1;
     const maxBlur = 20;
+    const maxY = app.screen.height / 2 + gameOverText.height /2
 
     app.ticker.add(() =>
         {
+            //La game over-teksten "dette ned" gradvis
+            if (gameOverText.y < maxY) {gameOverText.y += app.screen.height/100};
+
+            //Legge til gradvis mer blurr
             count += increment;
             if (blurAmount <= maxBlur) {blurAmount += increment};
-            if (blurAmount < 0) {gameOverBlur.blur = 0} else {gameOverBlur.blur = blurAmount};
+            if (blurAmount < 0) {gameOverBlur.strength = 0} else {gameOverBlur.strength = blurAmount};
 
-            if (count >= 40) {startOverButton()};
+            //Etter en stund kommer beskjed om å trykke enter for å starte spillet på nytt
+            if (count >= 40) {startOver()};
         
         });
 };
