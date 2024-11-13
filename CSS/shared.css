@@ -1,0 +1,73 @@
+/*
+deklarer alle konstanter i denne filen, eks farger.
+farger legges inn i root og refereres slik i koden: var(--bg1)
+man importerer disse konstantene i de andre filene slik: @value --bg1 from "./shared.css";
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --bg1: #1a1a1d;
+  --bg2: #2e3d4c;
+  --bg3: #3a506b;
+  --tekst: #e0e0e0;
+  --navbar: #333333;
+  --border: #555;
+  --menu_li_a: #c4c4c4;
+  --menu_li_hover: #ffffff;
+  --bg_menu_li_hover: rgba(255, 255, 255, 0.286);
+}
+
+body {
+  background: linear-gradient(to top, var(--bg1), var(--bg2), var(--bg3));
+  color: var(--tekst);
+  font-family: url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+  padding: 50px;
+  margin: 0;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: var(--navbar);
+  padding: 15px;
+  max-width: 975px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 0.5px solid var(--border);
+}
+/*Menyen (veien til spill, instukser, omOss)*/
+.menu {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.menu li {
+  margin: 0 10vh;
+}
+.menu li a {
+  text-decoration: none;
+  color: var(--menu_li_a);
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+.menu li a:hover {
+  color: var(--menu_li_hover);
+  background-color: var(--bg_menu_li_hover);
+}
+
+.footer {
+  color: var(--menu_li_hover);
+  padding: 20px;
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 40px;
+}
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}

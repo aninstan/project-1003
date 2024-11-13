@@ -1,44 +1,3 @@
-body {
-  background: linear-gradient(to top, #1a1a1d, #2e3d4c, #3a506b);
-  color: #e0e0e0;
-  font-family: "Arial", sans-serif;
-  padding: 50px;
-  margin: 0;
-  text-align: center;
-}
-.navbar {
-  display: flex;
-  justify-content: center;
-  background-color: #333333;
-  padding: 15px;
-  max-width: 975px;
-  margin: 0 auto;
-  border-radius: 10px;
-  border: 0.5px solid #555;
-}
-/*Menyen (veien til spill, instukser, omOss)*/
-.menu {
-  display: flex;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-.menu li {
-  margin: 0 10vh;
-}
-.menu li a {
-  text-decoration: none;
-  color: #c4c4c4;
-  font-weight: bold;
-  font-size: 1.1em;
-  padding: 8px 16px;
-  border-radius: 4px;
-}
-.menu li a:hover {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.286);
-}
-
 #gamecontent {
   justify-self: center;
   align-self: center;
@@ -49,16 +8,4 @@ body {
   position: relative;
   background-color: var(--black);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.footer {
-  color: #ffffff;
-  padding: 20px;
-  font-size: 0.9em;
-  text-align: center;
-  margin-top: 40px;
-}
-.footer-content {
-  max-width: 800px;
-  margin: 0 auto;
 }
