@@ -7,14 +7,14 @@ export function gameOver(app) {
     
     // Legge til game over-skrift
     const style = new TextStyle({
-        fontFamily:'Arial',
+        fontFamily:'Poppins',
         fontSize: app.screen.height / 4,
         fill: 'red'
     });
 
     const gameOverText = new Text({
         text: 'Game over',
-        style,
+        style: style,
     });
 
     //Legge til game over-tekst midt på skjermen
@@ -26,7 +26,7 @@ export function gameOver(app) {
 
     //Opprette tekst for restartknapp
     const style2 = new TextStyle({
-        fontFamily:'Arial',
+        fontFamily:'Poppins',
         fontSize: app.screen.height / 8,
         fill: 'white'
     });
