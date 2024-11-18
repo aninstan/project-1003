@@ -1,0 +1,12 @@
+/*Instrukser boks (her skal regler være samt skjermbilder av spill?*/
+.section {
+  margin: 20px auto;
+  max-width: 920px;
+  padding: 40px;
+  height: 500px;
+  background-color: #333333;
+  border: 4px solid #555;
+  border-radius: 10px;
+  color: #ffffff;
+  text-align: left;
+}

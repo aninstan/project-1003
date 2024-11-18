@@ -1,0 +1,48 @@
+.team-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  max-width: 45vw;
+  padding: 0px;
+  margin: 0px auto;
+}
+/*boks til hvert medlem*/
+.team-member {
+  display: flex;
+  align-items: center;
+  background-color: #333333;
+  color: #e0e0e0;
+  padding: 20px;
+  border-radius: 10px;
+  border: 3px solid #555;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/*Boksen blir litt større ved å hovere over*/
+.team-member:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+.team-member img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+.member-info {
+  text-align: left;
+}
+.member-info h3 {
+  margin: 0;
+  font-size: 1.3em;
+  color: #6287b4;
+}
+.member-info p {
+  margin: 5px 0;
+}
+.comment {
+  font-style: italic;
+  color: #aaaaaa;
+}

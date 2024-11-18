@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 
 <html lang="no">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://pixijs.download/release/pixi.min.js"></script>
 
     <title>Spill</title>
 
-    <link rel="stylesheet" href="CSS/shared.css">
-    <link rel="stylesheet" href="CSS/index.css">
-</head>
- <!--
+    <link rel="stylesheet" href="CSS/shared.css" />
+    <link rel="stylesheet" href="CSS/index.css" />
+  </head>
+  <!--
     "npm i" i terminalen
     "npm run dev" i terminalen. 
     ctrl + trykk på eller søk i browser "http://localhost:9000" etter dere har startet serveren med commanden over
  -->
-<body>
-    <div id="wrapper">
-        <div id="nav">
-            <a href="#">Spill</a>
-            <a href="pages/instructions.html">Instruksjoner</a>
-            <a href="pages/about.html">Om Oss</a>
-        </div>
-        
-        <div id="gamecontent">
-        </div>
-        <script type="module" src="JavaScript/waves.js"></script>
-        <script type="module" src="dist/bundle.js"></script>
-    </div>
-</body>
+  <body>
+    <nav class="navbar">
+      <ul class="menu">
+        <li><a href="/index.html">Spill</a></li>
+        <li><a href="/pages/instructions.html">Instruksjoner</a></li>
+        <li><a href="/pages/about.html">Om oss</a></li>
+      </ul>
+    </nav>
+    <h1>Dungeon spill</h1>
+    <div id="gamecontent"></div>
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2024 Dungeon Spill.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/JavaScript/waves.js"></script>
+    <script type="module" src="dist/bundle.js"></script>
+  </body>
 </html>
