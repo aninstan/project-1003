@@ -21,7 +21,7 @@ man importerer disse konstantene i de andre filene slik: @value --bg1 from "./sh
 body {
   background: linear-gradient(to top, var(--bg1), var(--bg2), var(--bg3));
   color: var(--tekst);
-  font-family: url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+  font-family: "Poppins", sans-serif;
   padding: 50px;
   margin: 0;
   text-align: center;
