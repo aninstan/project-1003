@@ -86,7 +86,7 @@ import { addStatusBar } from './statusbar.js';
     await spritesheet.parse();
 
     function setup() {
-        const tileSize = 15;
+        const tileSize = 16;
 
         // Define textures for different tile types
         const tileTextures = [

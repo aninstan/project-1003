@@ -17,10 +17,9 @@ export function addStatusBar(uiLayer, app) {
     statusBar.addChild(background, levelText, livesText, itemsText);
 
     function updateLayout() {
-        const statusBarHeight = app.screen.height / 10;
+        const statusBarHeight = app.screen.height / 15;
 
-        // Set dynamic styles for text
-        const fontSize = statusBarHeight / 2.5;
+        const fontSize = statusBarHeight / 2;
         const style = new TextStyle({
             fontFamily: 'Arial',
             fontSize: fontSize,
@@ -31,24 +30,25 @@ export function addStatusBar(uiLayer, app) {
         livesText.style = style;
         itemsText.style = style;
 
-        // Update background dimensions
-        background.clear();
-        background.beginFill(0x333333); // Dark background color
-        background.drawRect(0, 0, app.screen.width, statusBarHeight); // Full-width rectangle
-        background.endFill();
+        // Lage ensfargig bakgrunn i form av rektangel
+        background.rect(0, 0, app.screen.width, statusBarHeight);
+        background.fill(0x333333);
 
-        // Position text elements properly within the status bar
+        //Sett teksten i hver sin tredjedels boks med 0.05 skjermbredde "buffer"
         const textPositionY = (statusBarHeight - levelText.height) / 2;
-        const sectionWidth = app.screen.width / 3;
+        const sectionBuffer = app.screen.width * 0.05;
+        const totalWidth = app.screen.width - 0 * sectionBuffer;
+        const spacing = totalWidth / 3 + 40;
 
-        levelText.x = sectionWidth // Left section
+        levelText.x = sectionBuffer;
         levelText.y = textPositionY;
 
-        livesText.x = sectionWidth * 1.5 - (livesText.width / 2); // Center section
+        livesText.x = sectionBuffer + spacing;
         livesText.y = textPositionY;
 
-        itemsText.x = app.screen.width - sectionWidth * 0.5 - itemsText.width; // Right section
+        itemsText.x = sectionBuffer + 2 * spacing;
         itemsText.y = textPositionY;
+
     }
 
     updateLayout();
