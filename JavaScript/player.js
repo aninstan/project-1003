@@ -1,7 +1,7 @@
 import { Sprite, Container, Graphics } from 'pixi.js';
 
 class Player {
-    constructor(texture, x, y) {
+    constructor(texture, x, y, map) {
         if (isNaN(x) || isNaN(y)) {
             console.error("Player initialized with invalid position:", x, y);
             x = 0; // Fallback to prevent NaN
@@ -11,9 +11,13 @@ class Player {
         this.sprite = new Sprite(texture);
         this.sprite.anchor.set(0.5);
         this.container = new Container();
+
+        this.sprite.scale.set(1); 
     
         this.container.x = x;
         this.container.y = y;
+
+        this.map = map;
     
         console.log(`Player initialized at x=${x}, y=${y}`); // Ensure valid initialization
     
@@ -54,10 +58,14 @@ class Player {
         if (this.keys['ArrowDown'] || this.keys['s']) dy += this.speed * delta;
         if (this.keys['ArrowLeft'] || this.keys['a']) dx -= this.speed * delta;
         if (this.keys['ArrowRight'] || this.keys['d']) dx += this.speed * delta;
-    
-        // Apply movement to container
-        this.container.x += dx;
-        this.container.y += dy;
+
+        const newX = this.container.x + dx;
+        const newY = this.container.y + dy;
+
+        if (this.map.isWalkableTile(newX, newY)) {
+            this.container.x = newX;
+            this.container.y = newY;
+        }
     }
     
 

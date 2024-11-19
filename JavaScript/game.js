@@ -4,7 +4,7 @@ import Map from './map.js';
 import Player from './player.js';
 
 import dungeonTilesetPath from '../assets/terrain/Dungeon_Tileset.png';
-import { addStatusBar, resizeStatusBar } from './statusbar.js';
+import { addStatusBar } from './statusbar.js';
 
 (async () =>
 {
@@ -86,7 +86,7 @@ import { addStatusBar, resizeStatusBar } from './statusbar.js';
     await spritesheet.parse();
 
     function setup() {
-        const tileSize = 16;
+        const tileSize = 15;
 
         // Define textures for different tile types
         const tileTextures = [
@@ -102,33 +102,45 @@ import { addStatusBar, resizeStatusBar } from './statusbar.js';
             spritesheet.textures.playerTexture
         ];
 
-        // Create rooms with the defined tile textures
         const room1 = new Room(20, 10);
-
-        // Create a map and add rooms at specific positions
         const map = new Map(20, 20, tileTextures);
-        map.addRoom(room1, 4, 4);  // Place room1 at position (3, 3)
+        map.addRoom(room1, 0, 2);
 
-        // Render the map on the PixiJS stage
-        map.renderMap(app.stage, tileSize);
+        const gameLayer = new Container();
+        const uiLayer = new Container();
 
-        const mapWidth = room1.width * tileSize * 2; // Room width in pixels (tiles * tileSize * scale)
-        const mapHeight = room1.height * tileSize * 2;
+        app.stage.addChild(gameLayer);
+        app.stage.addChild(uiLayer);
 
-        const playerTexture = spritesheet.textures.playerTexture; // Update with actual player sprite
-        const player = new Player(playerTexture, 100, 100); // Start at (100, 100)
-        player.addToStage(app.stage);
+        map.renderMap(gameLayer, tileSize);
+
+        // Add player to gameLayer
+        const playerTexture = spritesheet.textures.playerTexture;
+        const player = new Player(playerTexture, 100, 100, map);
+        gameLayer.addChild(player.container);
+
+        // Add status bar to UI layer
+        addStatusBar(uiLayer, app);
+
+        const zoomLevel = 4; // Adjust this value for zoom level
+
+        function centerOnPlayer() {
+            gameLayer.pivot.set(player.container.x, player.container.y);
+            gameLayer.position.set(app.screen.width / 2, app.screen.height / 2);
+
+            // Apply zoom
+            gameLayer.scale.set(zoomLevel);
+        }
 
         app.ticker.add((delta) => {
             if (isNaN(delta) || delta <= 0) {
                 delta = 1; // Force default delta if calculation fails
             }
             player.update(delta);
+            centerOnPlayer();
         });
-               
 
     }
 
     setup();
-    addStatusBar(app);
 })();
