@@ -202,9 +202,11 @@ import { addStatusBar } from './statusbar.js';
         gameLayer.addChild(player.container);
 
         const treasures = [];
+        const walkableTiles = room1.generateRoomMatrix();
+
         const spawnTreasure = (count) => {
             for (let i = 0; i < count; i++) {
-                const { x, y } = getRandomPosition(room1, tileSize, treasures);
+                const { x, y } = getRandomPosition(room1, tileSize, treasures, walkableTiles);
                 const treasure = new Treasure(treasureFrames, x, y, statusBarMethods.collectItem);
                 treasures.push(treasure);
                 treasure.addToStage(gameLayer);
@@ -236,19 +238,26 @@ import { addStatusBar } from './statusbar.js';
         });
     }
 
-    function getRandomPosition(room, tileSize, existingTreasures) {
-        let x, y, overlaps;
+    function getRandomPosition(room, tileSize, existingTreasures, walkableTiles) {
+        let x, y, overlaps, validTile;
         do {
-            x = Math.floor(Math.random() * (room.width - 1)) * tileSize + tileSize / 2;
-            y = Math.floor(Math.random() * (room.height - 1)) * tileSize + tileSize / 2;
+            const col = Math.floor(Math.random() * (room.width - 1));
+            const row = Math.floor(Math.random() * (room.height - 1));
+    
+            x = col * tileSize + tileSize / 2;
+            y = row * tileSize + tileSize / 2;
+    
+            validTile = walkableTiles[row] && walkableTiles[row][col] === 0; // Ensure it's a floor tile (value 0)
+    
             overlaps = existingTreasures.some(
                 (treasure) =>
                     Math.abs(treasure.container.x - x) < tileSize &&
                     Math.abs(treasure.container.y - y) < tileSize
             );
-        } while (overlaps);
+        } while (!validTile || overlaps);
         return { x, y };
     }
+    
 
     setup();
 })();
