@@ -54,6 +54,7 @@ export function addStatusBar(uiLayer, app) {
     function nextLevel() {
         level += 1;
         levelText.text = `Level: ${level}`;
+        setRemainingItems(0);
     }
 
     function loseLife() {
@@ -66,18 +67,27 @@ export function addStatusBar(uiLayer, app) {
         itemsText.text = `Remaining items: ${remainingItems}`;
     }
 
-    function setLiveCount(count) {
+    function setLifeCount(count) {
         lives = count;
         livesText.text = `Lives: ${lives}`;
+    }
+
+    function getLifeCount() {
+        return lives;
     }
 
     function setRemainingItems(count) {
         remainingItems = count;
         itemsText.text = `Remaining items: ${remainingItems}`;
     }
+
+    function getRemainingItems() {
+        return remainingItems;
+    }
+
 updateLayout();
 
 window.addEventListener('resize', updateLayout);
 
-return { nextLevel, loseLife, collectItem, setLiveCount, setRemainingItems };
+return { nextLevel, loseLife, collectItem, setLifeCount, setRemainingItems, getRemainingItems, getLifeCount };
 }
