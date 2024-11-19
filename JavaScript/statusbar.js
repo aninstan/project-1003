@@ -78,4 +78,6 @@ export function addStatusBar(uiLayer, app) {
 updateLayout();
 
 window.addEventListener('resize', updateLayout);
+
+return { nextLevel, loseLife, collectItem, setLiveCount, setRemainingItems };
 }

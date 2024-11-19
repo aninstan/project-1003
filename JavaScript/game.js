@@ -1,12 +1,11 @@
-import { Application, Assets, Texture, Rectangle, Container, AnimatedSprite, Spritesheet, SCALE_MODES } from 'pixi.js';
+import { Application, Assets, Container, Spritesheet } from 'pixi.js';
 import Room from './room.js';
 import Map from './map.js';
 import Player from './player.js';
+import Treasure from './treasure.js';
 
 import dungeonTilesetPath from '../assets/terrain/0x72.png';
 import { addStatusBar } from './statusbar.js';
-
-
 
 (async () =>
     {
@@ -15,7 +14,7 @@ import { addStatusBar } from './statusbar.js';
     
 
     // Initialize the application
-    await app.init({ background: '#241318', resizeTo: document.getElementById('gamecontent'), antialias: false, scaleMode: SCALE_MODES.NEAREST });
+    await app.init({ background: '#241318', resizeTo: document.getElementById('gamecontent'), antialias: false });
 
 
     // Append the application canvas to the document body
@@ -27,6 +26,21 @@ import { addStatusBar } from './statusbar.js';
         frames: {
             floorTile: {
                 frame: { x: 16*2, y: 16*4, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            floorTile2: {
+                frame: { x: 16*1, y: 16*4, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            floorTile3: {
+                frame: { x: 16*3, y: 16*4, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            floorTile4: {
+                frame: { x: 16*2, y: 16*5, w: 16, h: 16 },
                 sourceSize: { w: 16, h: 16 },
                 spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
             },
@@ -94,11 +108,35 @@ import { addStatusBar } from './statusbar.js';
                 frame: { x: 16*13, y: 16*11, w: 16, h: 16 },
                 sourceSize: { w: 16, h: 16 },
                 spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            p6: {
+                frame: { x: 16*14, y: 16*11, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            p7: {
+                frame: { x: 16*15, y: 16*11, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            treasure1: {
+                frame: { x: 16*19, y: 16*26, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            treasure2: {
+                frame: { x: 16*20, y: 16*26, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            treasure3: {
+                frame: { x: 16*21, y: 16*26, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
             }
-    
         },
         meta: {
-            image: "/assets/terrain/Dungeon_Tileset.png", // Update this path with the actual path to your tileset image
+            image: "/assets/terrain/0x72.png", // Update this path with the actual path to your tileset image
             format: 'RGBA8888',
             size: { w: 160, h: 160 },
             scale: 1
@@ -112,9 +150,7 @@ import { addStatusBar } from './statusbar.js';
     function setup() {
         const tileSize = 16;
 
-        // Define textures for different tile types
         const tileTextures = [
-            spritesheet.textures.floorTile,
             spritesheet.textures.wallTileTop,
             spritesheet.textures.wallTileLeft,
             spritesheet.textures.wallTileRight,
@@ -125,16 +161,30 @@ import { addStatusBar } from './statusbar.js';
             spritesheet.textures.wallTileTopLeft,
         ];
 
+        const floorTiles = [
+            spritesheet.textures.floorTile,
+            spritesheet.textures.floorTile2,
+            spritesheet.textures.floorTile3,
+            spritesheet.textures.floorTile4
+        ];
+
         const playerFrames = [
             spritesheet.textures.p1,
             spritesheet.textures.p2,
             spritesheet.textures.p3,
             spritesheet.textures.p4,
-            spritesheet.textures.p5
+            spritesheet.textures.p5,
+            spritesheet.textures.p6
+        ];
+
+        const treasureFrames = [
+            spritesheet.textures.treasure1,
+            spritesheet.textures.treasure2,
+            spritesheet.textures.treasure3
         ];
 
         const room1 = new Room(30, 15);
-        const map = new Map(40, 40, tileTextures);
+        const map = new Map(40, 40, tileTextures, floorTiles);
         map.addRoom(room1, 0, 2);
 
         const gameLayer = new Container();
@@ -150,6 +200,18 @@ import { addStatusBar } from './statusbar.js';
         // Add player to gameLayer
         const player = new Player(playerFrames, room1.width * tileSize / 2, room1.height * tileSize / 2, map, statusBarMethods);
         gameLayer.addChild(player.container);
+
+        const treasures = [];
+        const spawnTreasure = (count) => {
+            for (let i = 0; i < count; i++) {
+                const { x, y } = getRandomPosition(room1, tileSize, treasures);
+                const treasure = new Treasure(treasureFrames, x, y, statusBarMethods.collectItem);
+                treasures.push(treasure);
+                treasure.addToStage(gameLayer);
+            }
+        };
+
+        spawnTreasure(5);
 
         const zoomLevel = 3; // Adjust this value for zoom level
 
@@ -167,8 +229,25 @@ import { addStatusBar } from './statusbar.js';
             }
             player.update(delta);
             centerOnPlayer();
-        });
 
+            treasures.forEach((treasure) => {
+                treasure.checkCollision(player);
+            });
+        });
+    }
+
+    function getRandomPosition(room, tileSize, existingTreasures) {
+        let x, y, overlaps;
+        do {
+            x = Math.floor(Math.random() * (room.width - 1)) * tileSize + tileSize / 2;
+            y = Math.floor(Math.random() * (room.height - 1)) * tileSize + tileSize / 2;
+            overlaps = existingTreasures.some(
+                (treasure) =>
+                    Math.abs(treasure.container.x - x) < tileSize &&
+                    Math.abs(treasure.container.y - y) < tileSize
+            );
+        } while (overlaps);
+        return { x, y };
     }
 
     setup();

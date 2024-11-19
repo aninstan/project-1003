@@ -1,16 +1,12 @@
 import { Container, Sprite } from 'pixi.js';
 
 class Map {
-    constructor(mapWidth, mapHeight, tileTextures) {
+    constructor(mapWidth, mapHeight, tileTextures, floorTiles) {
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
         this.rooms = []; // Array to hold Room instances
         this.tileTextures = tileTextures;
-
-        if (!Array.isArray(tileTextures) || tileTextures.length < 9) {
-            console.error("Error: tileTextures array must have at least 9 elements.");
-            throw new Error("Invalid tileTextures array");
-        }
+        this.floorTiles = floorTiles; 
     }
 
     addRoom(room, x, y) {
@@ -18,19 +14,29 @@ class Map {
         this.rooms.push(room);
     }
 
-    renderMap(stage, tileSize = 128) {
+    renderMap(stage, tileSize = 16) {
         for (const room of this.rooms) {
             const roomMatrix = room.generateRoomMatrix();
             const roomContainer = new Container();
 
             for (let row = 0; row < roomMatrix.length; row++) {
                 for (let col = 0; col < roomMatrix[row].length; col++) {
+                    if (roomMatrix[row][col] === 0) {
+                        const floorTileIndex = Math.floor(Math.random() * this.floorTiles.length);
+                        const floorTileTexture = this.floorTiles[floorTileIndex];
+                        const floorTileSprite = new Sprite(floorTileTexture);
+                        floorTileSprite.x = col * tileSize;
+                        floorTileSprite.y = row * tileSize;
+                        roomContainer.addChild(floorTileSprite);
+                    } else {
                     const tileIndex = roomMatrix[row][col];
-                    const tileTexture = this.tileTextures[tileIndex];
+                    const tileTexture = this.tileTextures[tileIndex-1];
+                    
                     const tileSprite = new Sprite(tileTexture);
                     tileSprite.x = col * tileSize;
                     tileSprite.y = row * tileSize;
                     roomContainer.addChild(tileSprite);
+                    }
                 }
             }
 
