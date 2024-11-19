@@ -56,7 +56,7 @@ class Map {
             // Position the room within the map based on its position property
             roomContainer.x = room.position.x * tileSize;
             roomContainer.y = room.position.y * tileSize;
-            roomContainer.scale.set(3)
+            roomContainer.scale.set(1)
             stage.addChild(roomContainer); // Add the room container to the stage
         }
     }

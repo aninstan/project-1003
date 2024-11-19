@@ -1,6 +1,7 @@
 import { Application, Assets, Texture, Rectangle, Container, AnimatedSprite, Spritesheet } from 'pixi.js';
 import Room from './room.js';
 import Map from './map.js';
+import Player from './player.js';
 
 import dungeonTilesetPath from '../assets/terrain/Dungeon_Tileset.png';
 import { addStatusBar, resizeStatusBar } from './statusbar.js';
@@ -64,12 +65,16 @@ import { addStatusBar, resizeStatusBar } from './statusbar.js';
                 frame: { x: 0, y: 0, w: 16, h: 16 },
                 sourceSize: { w: 16, h: 16 },
                 spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            playerTexture: {
+                frame: { x: 0, y: 16*9, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
             }
-
     
         },
         meta: {
-            image: dungeonTilesetPath, // Update this path with the actual path to your tileset image
+            image: "/assets/terrain/Dungeon_Tileset.png", // Update this path with the actual path to your tileset image
             format: 'RGBA8888',
             size: { w: 160, h: 160 },
             scale: 1
@@ -93,19 +98,34 @@ import { addStatusBar, resizeStatusBar } from './statusbar.js';
             spritesheet.textures.wallTileBottomRight,
             spritesheet.textures.wallTileBottomLeft,
             spritesheet.textures.wallTileTopRight,
-            spritesheet.textures.wallTileTopLeft
+            spritesheet.textures.wallTileTopLeft,
+            spritesheet.textures.playerTexture
         ];
 
         // Create rooms with the defined tile textures
-        const room1 = new Room(10, 6);
-        const room2 = new Room(20, 14);
+        const room1 = new Room(20, 10);
 
         // Create a map and add rooms at specific positions
         const map = new Map(20, 20, tileTextures);
-        map.addRoom(room1, 1, 3);  // Place room1 at position (3, 3)
+        map.addRoom(room1, 4, 4);  // Place room1 at position (3, 3)
 
         // Render the map on the PixiJS stage
         map.renderMap(app.stage, tileSize);
+
+        const mapWidth = room1.width * tileSize * 2; // Room width in pixels (tiles * tileSize * scale)
+        const mapHeight = room1.height * tileSize * 2;
+
+        const playerTexture = spritesheet.textures.playerTexture; // Update with actual player sprite
+        const player = new Player(playerTexture, 100, 100); // Start at (100, 100)
+        player.addToStage(app.stage);
+
+        app.ticker.add((delta) => {
+            if (isNaN(delta) || delta <= 0) {
+                delta = 1; // Force default delta if calculation fails
+            }
+            player.update(delta);
+        });
+               
 
     }
 

@@ -2,6 +2,7 @@ class Room {
     constructor(width, height) {
         this.width = width;
         this.height = height;
+        this.matrix = this.generateRoomMatrix();
     }
 
     // Generate room layout as a matrix without requiring `tileMapping` as a parameter
@@ -17,6 +18,7 @@ class Room {
             "tr": 7, // Top-right corner
             "tl": 8  // Top-left corner
         };
+    
 
         const matrix = [];
         for (let y = 0; y < this.height; y++) {
@@ -44,8 +46,11 @@ class Room {
             }
             matrix.push(row);
         }
-        console.log(matrix);
         return matrix;
+    }
+
+    getMatrix() {
+        return this.matrix;
     }
 }
 
