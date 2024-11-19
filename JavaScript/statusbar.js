@@ -21,7 +21,7 @@ export function addStatusBar(uiLayer, app) {
 
         const fontSize = statusBarHeight / 2;
         const style = new TextStyle({
-            fontFamily: 'Arial',
+            fontFamily: 'Poppins',
             fontSize: fontSize,
             fill: 'white',
         });
