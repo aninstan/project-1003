@@ -6,19 +6,15 @@ import Treasure from './treasure.js';
 
 import dungeonTilesetPath from '../assets/terrain/0x72.png';
 import { addStatusBar } from './statusbar.js';
+import { gameOver } from './gameover.js';
 
-(async () =>
-    {
+(async () => {
     // Create a new application
     const app = new Application();
-    
 
-    // Initialize the application
     await app.init({ background: '#241318', resizeTo: document.getElementById('gamecontent'), antialias: false });
 
-
-    // Append the application canvas to the document body
-    document.getElementById('gamecontent').appendChild(app.canvas);
+    document.getElementById('gamecontent').appendChild(app.view);
 
     const imageTexture = await Assets.load(dungeonTilesetPath);
 
@@ -144,120 +140,111 @@ import { addStatusBar } from './statusbar.js';
     };
 
     const spritesheet = new Spritesheet(imageTexture, atlasData);
-
     await spritesheet.parse();
 
-    function setup() {
-        const tileSize = 16;
+    const tileSize = 16;
+    const tileTextures = [
+        spritesheet.textures.wallTileTop,
+        spritesheet.textures.wallTileLeft,
+        spritesheet.textures.wallTileRight,
+        spritesheet.textures.wallTileBottom,
+        spritesheet.textures.wallTileBottomRight,
+        spritesheet.textures.wallTileBottomLeft,
+        spritesheet.textures.wallTileTopRight,
+        spritesheet.textures.wallTileTopLeft
+    ];
+    const floorTiles = [
+        spritesheet.textures.floorTile,
+        spritesheet.textures.floorTile2,
+        spritesheet.textures.floorTile3,
+        spritesheet.textures.floorTile4
+    ];
+    const playerFrames = [
+        spritesheet.textures.p1, spritesheet.textures.p2, spritesheet.textures.p3
+    ];
+    const treasureFrames = [
+        spritesheet.textures.treasure1, spritesheet.textures.treasure2, spritesheet.textures.treasure3
+    ];
 
-        const tileTextures = [
-            spritesheet.textures.wallTileTop,
-            spritesheet.textures.wallTileLeft,
-            spritesheet.textures.wallTileRight,
-            spritesheet.textures.wallTileBottom,
-            spritesheet.textures.wallTileBottomRight,
-            spritesheet.textures.wallTileBottomLeft,
-            spritesheet.textures.wallTileTopRight,
-            spritesheet.textures.wallTileTopLeft,
-        ];
+    let treasures = [];
+    const gameLayer = new Container();
+    const uiLayer = new Container();
+    app.stage.addChild(gameLayer);
+    app.stage.addChild(uiLayer);
 
-        const floorTiles = [
-            spritesheet.textures.floorTile,
-            spritesheet.textures.floorTile2,
-            spritesheet.textures.floorTile3,
-            spritesheet.textures.floorTile4
-        ];
+    const statusBarMethods = addStatusBar(uiLayer, app);
 
-        const playerFrames = [
-            spritesheet.textures.p1,
-            spritesheet.textures.p2,
-            spritesheet.textures.p3,
-            spritesheet.textures.p4,
-            spritesheet.textures.p5,
-            spritesheet.textures.p6
-        ];
+    let player;
 
-        const treasureFrames = [
-            spritesheet.textures.treasure1,
-            spritesheet.textures.treasure2,
-            spritesheet.textures.treasure3
-        ];
-
-        const room1 = new Room(30, 15);
+    function generateLevel() {
+        gameLayer.removeChildren();
+        const room = new Room(30, 15);
         const map = new Map(40, 40, tileTextures, floorTiles);
-        map.addRoom(room1, 0, 2);
-
-        const gameLayer = new Container();
-        const uiLayer = new Container();
-
-        app.stage.addChild(gameLayer);
-        app.stage.addChild(uiLayer);
-
+        map.addRoom(room, 0, 2);
         map.renderMap(gameLayer, tileSize);
+        treasures = [];
 
-        const statusBarMethods = addStatusBar(uiLayer, app);
-
-        // Add player to gameLayer
-        const player = new Player(playerFrames, room1.width * tileSize / 2, room1.height * tileSize / 2, map, statusBarMethods);
+        const walkableTiles = room.generateRoomMatrix();
+        player = new Player(playerFrames, room.width * tileSize / 2, room.height * tileSize / 2, map, statusBarMethods);
         gameLayer.addChild(player.container);
 
-        const treasures = [];
-        const walkableTiles = room1.generateRoomMatrix();
-
-        const spawnTreasure = (count) => {
-            for (let i = 0; i < count; i++) {
-                const { x, y } = getRandomPosition(room1, tileSize, treasures, walkableTiles);
-                const treasure = new Treasure(treasureFrames, x, y, statusBarMethods.collectItem);
-                treasures.push(treasure);
-                treasure.addToStage(gameLayer);
-            }
-        };
-
-        spawnTreasure(5);
-
-        const zoomLevel = 3; // Adjust this value for zoom level
-
-        function centerOnPlayer() {
-            gameLayer.pivot.set(player.container.x, player.container.y);
-            gameLayer.position.set(app.screen.width / 2, app.screen.height / 2);
-
-            // Apply zoom
-            gameLayer.scale.set(zoomLevel);
-        }
-
-        app.ticker.add((delta) => {
-            if (isNaN(delta) || delta <= 0) {
-                delta = 1; // Force default delta if calculation fails
-            }
-            player.update(delta);
-            centerOnPlayer();
-
-            treasures.forEach((treasure) => {
-                treasure.checkCollision(player);
-            });
-        });
+        const treasureCount = getRandomInt(3, 10);
+        spawnTreasure(treasureCount, walkableTiles);
+        statusBarMethods.setRemainingItems(treasureCount);
     }
 
-    function getRandomPosition(room, tileSize, existingTreasures, walkableTiles) {
+    function spawnTreasure(count, walkableTiles) {
+        for (let i = 0; i < count; i++) {
+            const { x, y } = getRandomPosition(walkableTiles);
+            const treasure = new Treasure(treasureFrames, x, y, statusBarMethods.collectItem);
+            treasures.push(treasure);
+            treasure.addToStage(gameLayer);
+        }
+    }
+
+    function getRandomPosition(walkableTiles) {
         let x, y, overlaps, validTile;
         do {
-            const col = Math.floor(Math.random() * (room.width - 1));
-            const row = Math.floor(Math.random() * (room.height - 1));
-    
+            const col = Math.floor(Math.random() * walkableTiles[0].length);
+            const row = Math.floor(Math.random() * (walkableTiles.length - 2)) + 2;
             x = col * tileSize + tileSize / 2;
             y = row * tileSize + tileSize / 2;
-    
-            validTile = walkableTiles[row] && walkableTiles[row][col] === 0; // Ensure it's a floor tile (value 0)
-    
-            overlaps = existingTreasures.some(
-                (treasure) =>
-                    Math.abs(treasure.container.x - x) < tileSize &&
-                    Math.abs(treasure.container.y - y) < tileSize
+            validTile = walkableTiles[row] && walkableTiles[row][col] === 0;
+            overlaps = treasures.some(
+                treasure => Math.abs(treasure.container.x - x) < tileSize && Math.abs(treasure.container.y - y) < tileSize
             );
         } while (!validTile || overlaps);
         return { x, y };
     }
-    
 
-    setup();
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function centerOnPlayer() {
+        gameLayer.pivot.set(player.container.x, player.container.y);
+        gameLayer.position.set(app.screen.width / 2, app.screen.height / 2);
+        gameLayer.scale.set(3);
+    }
+
+    app.ticker.add(delta => {
+        if (isNaN(delta) || delta <= 0) {
+            delta = 1; // Force default delta if calculation fails
+        }
+        if (statusBarMethods.getRemainingItems() === 0) {
+            statusBarMethods.nextLevel();
+            generateLevel();
+        }
+
+        if (statusBarMethods.getLifeCount() === 0) {
+            gameOver(app);
+            return;
+        }
+
+        player.update(delta);
+        centerOnPlayer();
+        treasures.forEach(treasure => treasure.checkCollision(player));
+    });
+
+    generateLevel(); // Start first level
 })();
