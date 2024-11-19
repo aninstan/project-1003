@@ -3,6 +3,7 @@ import Room from './room.js';
 import Map from './map.js';
 import Player from './player.js';
 import Treasure from './treasure.js';
+import nextLevel from './nextLevel.js';
 
 import dungeonTilesetPath from '../assets/terrain/0x72.png';
 import { addStatusBar } from './statusbar.js';
@@ -178,8 +179,8 @@ import { gameOver } from './gameover.js';
 
     function generateLevel() {
         gameLayer.removeChildren();
-        const room = new Room(30, 15);
-        const map = new Map(40, 40, tileTextures, floorTiles);
+        const room = new Room(getRandomInt(15,50), getRandomInt(10,30));
+        const map = new Map(60, 60, tileTextures, floorTiles);
         map.addRoom(room, 0, 2);
         map.renderMap(gameLayer, tileSize);
         treasures = [];
@@ -227,14 +228,20 @@ import { gameOver } from './gameover.js';
         gameLayer.scale.set(3);
     }
 
+    let isTransitioning = false;
+
     app.ticker.add(delta => {
         if (isNaN(delta) || delta <= 0) {
             delta = 1; // Force default delta if calculation fails
         }
-        if (statusBarMethods.getRemainingItems() === 0) {
-            statusBarMethods.nextLevel();
-            generateLevel();
-        }
+        if (statusBarMethods.getRemainingItems() === 0 && !isTransitioning) {
+            isTransitioning = true;
+            nextLevel(app, () => {
+                statusBarMethods.nextLevel();
+                generateLevel(); 
+                isTransitioning = false;
+            });
+        }        
 
         if (statusBarMethods.getLifeCount() === 0) {
             gameOver(app);
