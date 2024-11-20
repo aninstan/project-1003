@@ -49,9 +49,11 @@ class Room {
         return matrix;
     }
 
+
     getMatrix() {
         return this.matrix;
     }
+
 }
 
 export default Room;

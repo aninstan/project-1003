@@ -86,7 +86,6 @@ class Player {
             this.sprite.play();
         }
     }
-    
 
     addToStage(stage) {
         stage.addChild(this.container);
