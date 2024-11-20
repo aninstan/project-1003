@@ -4,6 +4,8 @@ import Map from './map.js';
 import Player from './player.js';
 import Treasure from './treasure.js';
 import nextLevel from './nextLevel.js';
+import Enemy from './enemy.js';
+
 
 import dungeonTilesetPath from '../assets/terrain/0x72.png';
 import { addStatusBar } from './statusbar.js';
@@ -130,7 +132,28 @@ import { gameOver } from './gameover.js';
                 frame: { x: 16*21, y: 16*26, w: 16, h: 16 },
                 sourceSize: { w: 16, h: 16 },
                 spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            e1_1: {
+                frame: { x: 16*27, y: 16*7, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            e1_2: {
+                frame: { x: 16*28, y: 16*7, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            e1_3: {
+                frame: { x: 16*29, y: 16*7, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
+            },
+            e1_4: {
+                frame: { x: 16*30, y: 16*7, w: 16, h: 16 },
+                sourceSize: { w: 16, h: 16 },
+                spriteSourceSize: { x: 0, y: 0, w: 16, h: 16 }
             }
+
         },
         meta: {
             image: "/assets/terrain/0x72.png", // Update this path with the actual path to your tileset image
@@ -166,14 +189,23 @@ import { gameOver } from './gameover.js';
     const treasureFrames = [
         spritesheet.textures.treasure1, spritesheet.textures.treasure2, spritesheet.textures.treasure3
     ];
+    const enemyFrames = [
+        spritesheet.textures.e1_1,
+        spritesheet.textures.e1_2,
+        spritesheet.textures.e1_3,
+        spritesheet.textures.e1_4
+    ];
 
     let treasures = [];
+    let enemies = [];
+
     const gameLayer = new Container();
     const uiLayer = new Container();
     app.stage.addChild(gameLayer);
     app.stage.addChild(uiLayer);
 
     const statusBarMethods = addStatusBar(uiLayer, app);
+    let levelGenerated = false;
 
     let player;
 
@@ -184,24 +216,46 @@ import { gameOver } from './gameover.js';
         map.addRoom(room, 0, 2);
         map.renderMap(gameLayer, tileSize);
         treasures = [];
-
+        enemies = [];
+        
         const walkableTiles = room.generateRoomMatrix();
         player = new Player(playerFrames, room.width * tileSize / 2, room.height * tileSize / 2, map, statusBarMethods);
         gameLayer.addChild(player.container);
 
         const treasureCount = getRandomInt(3, 10);
         spawnTreasure(treasureCount, walkableTiles);
+
         statusBarMethods.setRemainingItems(treasureCount);
+        let enCount = getRandomInt(3, 10);
+
+        levelGenerated = true;
+
+        function spawnEnemy(enCount, walkableTiles) {
+            for (let i = 0; i < enCount; i++) {
+                const { x, y } = getRandomPosition(walkableTiles);
+                const enemy = new Enemy(enemyFrames, x, y, map, statusBarMethods.loseLife, player);
+                //enemy.addToStage(gameLayer);
+                enemies.push(enemy);
+                gameLayer.addChild(enemy.container);
+            }
+        }
+
+        function spawnTreasure(count, walkableTiles) {
+            for (let i = 0; i < count; i++) {
+                const { x, y } = getRandomPosition(walkableTiles);
+                const treasure = new Treasure(treasureFrames, x, y, statusBarMethods.collectItem);
+                treasures.push(treasure);
+                treasure.addToStage(gameLayer);
+            }
+        }
+
+        spawnEnemy(enCount, walkableTiles);
+        
     }
 
-    function spawnTreasure(count, walkableTiles) {
-        for (let i = 0; i < count; i++) {
-            const { x, y } = getRandomPosition(walkableTiles);
-            const treasure = new Treasure(treasureFrames, x, y, statusBarMethods.collectItem);
-            treasures.push(treasure);
-            treasure.addToStage(gameLayer);
-        }
-    }
+    statusBarMethods.setLifeCount(3);
+    
+
 
     function getRandomPosition(walkableTiles) {
         let x, y, overlaps, validTile;
@@ -248,9 +302,13 @@ import { gameOver } from './gameover.js';
             return;
         }
 
+        if (!levelGenerated) return;
+
         player.update(delta);
         centerOnPlayer();
         treasures.forEach(treasure => treasure.checkCollision(player));
+        // check for collision and console.log if collision is detected
+        enemies.forEach(enemy => enemy.update(delta));
     });
 
     generateLevel(); // Start first level
