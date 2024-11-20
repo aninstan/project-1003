@@ -205,6 +205,7 @@ import { gameOver } from './gameover.js';
     app.stage.addChild(uiLayer);
 
     const statusBarMethods = addStatusBar(uiLayer, app);
+    let levelGenerated = false;
 
     let player;
 
@@ -223,29 +224,37 @@ import { gameOver } from './gameover.js';
 
         const treasureCount = getRandomInt(3, 10);
         spawnTreasure(treasureCount, walkableTiles);
+
         statusBarMethods.setRemainingItems(treasureCount);
         let enCount = getRandomInt(3, 10);
+
+        levelGenerated = true;
 
         function spawnEnemy(enCount, walkableTiles) {
             for (let i = 0; i < enCount; i++) {
                 const { x, y } = getRandomPosition(walkableTiles);
-                const enemy = new Enemy(enemyFrames, x, y, map, statusBarMethods, player);
-                enemy.addToStage(gameLayer);
+                const enemy = new Enemy(enemyFrames, x, y, map, statusBarMethods.loseLife, player);
+                //enemy.addToStage(gameLayer);
                 enemies.push(enemy);
+                gameLayer.addChild(enemy.container);
+            }
+        }
+
+        function spawnTreasure(count, walkableTiles) {
+            for (let i = 0; i < count; i++) {
+                const { x, y } = getRandomPosition(walkableTiles);
+                const treasure = new Treasure(treasureFrames, x, y, statusBarMethods.collectItem);
+                treasures.push(treasure);
+                treasure.addToStage(gameLayer);
             }
         }
 
         spawnEnemy(enCount, walkableTiles);
+        
     }
 
-    function spawnTreasure(count, walkableTiles) {
-        for (let i = 0; i < count; i++) {
-            const { x, y } = getRandomPosition(walkableTiles);
-            const treasure = new Treasure(treasureFrames, x, y, statusBarMethods.collectItem);
-            treasures.push(treasure);
-            treasure.addToStage(gameLayer);
-        }
-    }
+    statusBarMethods.setLifeCount(3);
+    
 
 
     function getRandomPosition(walkableTiles) {
@@ -293,12 +302,13 @@ import { gameOver } from './gameover.js';
             return;
         }
 
+        if (!levelGenerated) return;
+
         player.update(delta);
         centerOnPlayer();
         treasures.forEach(treasure => treasure.checkCollision(player));
+        // check for collision and console.log if collision is detected
         enemies.forEach(enemy => enemy.update(delta));
-        enemies.forEach(enemy => enemy.checkCollision(player));
-
     });
 
     generateLevel(); // Start first level
