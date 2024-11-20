@@ -10,6 +10,13 @@
 
     <link rel="stylesheet" href="CSS/shared.css" />
     <link rel="stylesheet" href="CSS/index.css" />
+    <script>
+      // Check if the current URL is the root (does not explicitly end with "index.html")
+      if (window.location.pathname === "/project-1003/" || window.location.pathname.endsWith("/index.html")) {
+          // Redirect only on landing
+          window.location.href = "/project-1003/pages/instructions.html";
+      }
+  </script>
   </head>
   <!--
     "npm i" i terminalen
