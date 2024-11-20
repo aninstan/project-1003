@@ -22,18 +22,18 @@ body {
   background: linear-gradient(to top, var(--bg1), var(--bg2), var(--bg3));
   color: var(--tekst);
   font-family: "Poppins", sans-serif;
-  padding: 50px;
   margin: 0;
   text-align: center;
+  min-height: 100vh;
 }
 
 .navbar {
   display: flex;
   justify-content: center;
   background-color: var(--navbar);
-  padding: 15px;
+  padding: 8px;
   max-width: 975px;
-  margin: 0 auto;
+  margin: 1vh auto 0 auto;
   border-radius: 10px;
   border: 0.5px solid var(--border);
 }
@@ -62,10 +62,9 @@ body {
 
 .footer {
   color: var(--menu_li_hover);
-  padding: 20px;
+  padding: 10px;
   font-size: 0.9em;
   text-align: center;
-  margin-top: 40px;
 }
 .footer-content {
   max-width: 800px;
