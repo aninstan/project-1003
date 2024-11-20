@@ -5,24 +5,24 @@
   max-width: 45vw;
   padding: 0px;
   margin: 0px auto;
+  background-color: #333333;
+  border: 3px solid #555;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 /*boks til hvert medlem*/
 .team-member {
   display: flex;
   align-items: center;
-  background-color: #333333;
   color: #e0e0e0;
   padding: 20px;
   border-radius: 10px;
-  border: 3px solid #555;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 /*Boksen blir litt større ved å hovere over*/
 .team-member:hover {
-  transform: scale(1.01);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  transform: scale(1.03);
 }
+
 .team-member img {
   width: 90px;
   height: 90px;
