@@ -219,8 +219,7 @@ import { gameOver } from './gameover.js';
         enemies = [];
         
         const walkableTiles = room.generateRoomMatrix();
-        player = new Player(playerFrames, room.width * tileSize / 2, room.height * tileSize / 2, map, statusBarMethods);
-        gameLayer.addChild(player.container);
+        
 
         const treasureCount = getRandomInt(3, 10);
         spawnTreasure(treasureCount, walkableTiles);
@@ -234,11 +233,11 @@ import { gameOver } from './gameover.js';
             for (let i = 0; i < enCount; i++) {
                 const { x, y } = getRandomPosition(walkableTiles);
                 const enemy = new Enemy(enemyFrames, x, y, map, statusBarMethods.loseLife, player);
-                //enemy.addToStage(gameLayer);
                 enemies.push(enemy);
                 gameLayer.addChild(enemy.container);
             }
         }
+        
 
         function spawnTreasure(count, walkableTiles) {
             for (let i = 0; i < count; i++) {
@@ -249,7 +248,13 @@ import { gameOver } from './gameover.js';
             }
         }
 
+        player = new Player(playerFrames, room.width * tileSize / 2, room.height * tileSize / 2, map, statusBarMethods);
+        player.resetGracePeriod();
+        gameLayer.addChild(player.container);
+
         spawnEnemy(enCount, walkableTiles);
+
+        
         
     }
 
@@ -288,6 +293,9 @@ import { gameOver } from './gameover.js';
         if (isNaN(delta) || delta <= 0) {
             delta = 1; // Force default delta if calculation fails
         }
+
+        if (!levelGenerated) return;
+
         if (statusBarMethods.getRemainingItems() === 0 && !isTransitioning) {
             isTransitioning = true;
             nextLevel(app, () => {
@@ -307,7 +315,6 @@ import { gameOver } from './gameover.js';
         player.update(delta);
         centerOnPlayer();
         treasures.forEach(treasure => treasure.checkCollision(player));
-        // check for collision and console.log if collision is detected
         enemies.forEach(enemy => enemy.update(delta));
     });
 
