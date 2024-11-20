@@ -231,7 +231,26 @@ import { gameOver } from './gameover.js';
 
         function spawnEnemy(enCount, walkableTiles) {
             for (let i = 0; i < enCount; i++) {
-                const { x, y } = getRandomPosition(walkableTiles);
+                let validSpawn = false;
+                let x, y;
+        
+                while (!validSpawn) {
+                    const { x: potentialX, y: potentialY } = getRandomPosition(walkableTiles);
+        
+                    // Calculate distance from the player's spawn point
+                    const dx = potentialX - player.container.x;
+                    const dy = potentialY - player.container.y;
+                    const distanceInTiles = Math.sqrt(dx * dx + dy * dy) / tileSize;
+        
+                    // Ensure the spawn point is at least 8 tiles away
+                    if (distanceInTiles >= 5) {
+                        x = potentialX;
+                        y = potentialY;
+                        validSpawn = true;
+                    }
+                }
+        
+                // Create the enemy at the valid spawn point
                 const enemy = new Enemy(enemyFrames, x, y, map, statusBarMethods.loseLife, player);
                 enemies.push(enemy);
                 gameLayer.addChild(enemy.container);
