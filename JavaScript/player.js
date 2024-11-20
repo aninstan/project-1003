@@ -36,6 +36,10 @@ class Player {
         this.speed = 1;
         this.keys = {};
         this.initInput();
+
+        this.gracePeriod = 1000; // 1 second in milliseconds
+        this.isInvincible = true;
+        this.graceStartTime = performance.now();
     }
     
 
@@ -58,6 +62,11 @@ class Player {
         if (isNaN(delta) || delta === undefined || delta === null) {
             console.error("Invalid delta value:", delta);
             return;
+        }
+
+        if (this.isInvincible && performance.now() - this.graceStartTime > this.gracePeriod) {
+            this.isInvincible = false;
+            this.hitbox.alpha = 0; // Make hitbox visible again if needed
         }
     
         let dx = 0;
@@ -85,6 +94,12 @@ class Player {
         if (this.isMoving && !this.sprite.playing) {
             this.sprite.play();
         }
+    }
+
+    resetGracePeriod() {
+        this.isInvincible = true;
+        this.graceStartTime = performance.now();
+        this.hitbox.alpha = 0.5; // Example: visually show invincibility
     }
 
     addToStage(stage) {

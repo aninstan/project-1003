@@ -19,21 +19,24 @@ class Enemy {
         this.player = player;
 
         // Enemy speed
-        this.speed = Math.random() * 0.5 + 0.2; // Ensure a minimum positive speed
+        this.speed = Math.random() * 0.5 + 0.2;
 
         // Hitbox for collision
         this.hitbox = new Graphics();
-        this.hitbox.fill({ color: 0x00ff00, alpha: 0.3 }); 
         this.hitbox.rect(-this.sprite.width / 2, -this.sprite.height / 2, this.sprite.width, this.sprite.height);
+        this.hitbox.fill({ color: 0xff0000, alpha: 0 }); 
 
         this.container.addChild(this.sprite);
         this.container.addChild(this.hitbox);
+
+        this.gracePeriodDuration = 1000; // 1 second in milliseconds
+        this.gracePeriodStart = performance.now();
 
         this.hasCollided = false;
     }
 
     update(delta) {
-        if (!this.player || !this.player.container) return;
+        //if (!this.player || !this.player.container) return;
 
         const dx = this.player.container.x - this.container.x;
         const dy = this.player.container.y - this.container.y;
@@ -52,6 +55,11 @@ class Enemy {
             }
         }
 
+        const currentTime = performance.now();
+        if (currentTime - this.gracePeriodStart < this.gracePeriodDuration) {
+            return;
+        }
+
         if (this.checkCollision(this.player)) {
             if (!this.hasCollided) {
                 console.log("Collision detected!");
@@ -64,6 +72,8 @@ class Enemy {
     }
 
     checkCollision(player) {
+        if (player.isInvincible) return false;
+
         const playerBounds = player.hitbox.getBounds(true); 
         const enemyBounds = this.hitbox.getBounds(true);
 
