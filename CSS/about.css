@@ -7,6 +7,7 @@
   margin: 0px auto;
   background-color: #333333;
   border: 3px solid #555;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 /*boks til hvert medlem*/
@@ -15,7 +16,7 @@
   align-items: center;
   color: #e0e0e0;
   padding: 20px;
-  border-radius: 10px;
+  
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 /*Boksen blir litt større ved å hovere over*/
